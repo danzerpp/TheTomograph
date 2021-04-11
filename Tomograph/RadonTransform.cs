@@ -15,6 +15,7 @@ namespace Tomograph
 
         public Bitmap Sinogram;
         public int[,] SinogramValues;
+        // nowa tablica do rozmania
 
         public int Scans;
         public int Detectors;
@@ -80,6 +81,9 @@ namespace Tomograph
                 count++; // który scan w sinogramie
             }
 
+            //przeskaluj
+            // przypsiz do bitmapy
+
 
             return outBitmap;
         }
@@ -95,6 +99,8 @@ namespace Tomograph
                     Color newColor = Color.FromArgb(rgb, rgb, rgb);
                     bitmap.SetPixel(point.X, point.Y, newColor);
                 }
+                
+                // tu aktualziacja wartosci
             }
         }
 
@@ -151,7 +157,7 @@ namespace Tomograph
             }
 
             
-
+            //tu przeskaluje tablcie dwuwymairowowa 
 
             Bitmap sinogram = new Bitmap(Detectors, Scans);
           
@@ -191,7 +197,11 @@ namespace Tomograph
             // TODO
             // trzeba ogarnąć to sumowanie, bo wymnożenie wyniku ostatecznego o 6 daje dopiero w miarę oczekiwany rezultat
             // 
-            return Math.Min(sum / count * 6 , 255); // dzielimy przez ilość punktów
+            return Math.Min(sum / count *6  , 255); // dzielimy przez ilość punktów
+
+            //TODO
+            // wartosci walisz w tablice dwuwymairowa i przeskalowujesz na skale szarosci
+
         }
 
         private List<Point> GetPointsOnLine(int x0, int y0, int x1, int y1) // funkcja z neta, ale tej nie musieliśmy pisać sami
