@@ -58,7 +58,7 @@ namespace Tomograph
                 //Przy wyszukiwaniu punktów dodajemy do x i y "r", bo wzór jest ustawiony tak, że środek koła
                 // znajduje się w punkcie (0,0). Dodając "r" przenosimy się w przestrzeń bitmapy tj. tylko pierwsza ćwiartka układu
                 List<Point> points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r);
-                SetColorsToBitmapPixels(outBitmap, points,SinogramValues[count,0]);
+                SetColorsToBitmapPixels(outBitmap, points, SinogramValues[count,0]);
 
                 //x,y - Di
                 for (int i = 1; i < Detectors - 1; i++)
