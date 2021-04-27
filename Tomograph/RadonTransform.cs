@@ -15,7 +15,12 @@ namespace Tomograph
 
         public Bitmap Sinogram;
         public int[,] SinogramValues;
+        public int[,] SinogramFilteredValues;
         // nowa tablica do rozmania
+
+        int[,] OutBitmapValues;
+        int[,] OutFilteredBitmapValues;
+
 
         public int Scans;
         public int Detectors;
@@ -23,17 +28,45 @@ namespace Tomograph
 
         public RadonTransform(Bitmap inBitmap, int scans, int detectors, int beamExtend)
         {
+
             this.InBitmap = inBitmap;
+            // tworzymy 100% skalę szarości
+            for (int i = 0; i < inBitmap.Width; i++)
+            {
+                for (int j = 0; j < inBitmap.Height; j++)
+                {
+                    Color oc = inBitmap.GetPixel(i, j);
+                    int grayScale = (int)((oc.R * 0.3) + (oc.G * 0.59) + (oc.B * 0.11));
+                    Color nc = Color.FromArgb(oc.A, grayScale, grayScale, grayScale);
+                    inBitmap.SetPixel(i, j, nc);
+                }
+            }
+
+
             this.Scans = scans;
             this.Detectors = detectors;
             this.BeamExtend = beamExtend;
+
             SinogramValues = new int[scans, detectors];
+            SinogramFilteredValues = new int[scans, detectors];
+
+            OutBitmapValues =  new int[InBitmap.Width, InBitmap.Height];
+            OutFilteredBitmapValues = new int[InBitmap.Width, InBitmap.Height];
+
+            for (int i = 0; i < InBitmap.Width; i++)
+            {
+                for (int j = 0; j < InBitmap.Height; j++)
+                {
+                    OutBitmapValues[i, j] = 0;
+                    OutFilteredBitmapValues[i, j] = 0;
+                }
+            }
+            
         }
 
         public Bitmap CreateOutImage(int iteration)
         {
             Bitmap outBitmap = new Bitmap(InBitmap.Width,InBitmap.Height);
-
             for (int i = 0; i < InBitmap.Width; i++)
             {
                 for (int j = 0; j < InBitmap.Height; j++)
@@ -80,9 +113,39 @@ namespace Tomograph
 
                 count++; // który scan w sinogramie
             }
+            //znowu min max
+            int min = 255;
+            int max = 0;
 
-            //przeskaluj
-            // przypsiz do bitmapy
+            foreach (var value in OutBitmapValues)
+            {
+                if (value > max)
+                {
+                    max = value;
+                }
+                if (min > value)
+                {
+                    min = value;
+                }
+            }
+            // tworzymy wartości w zakresie
+            for(int i = 0; i < InBitmap.Width; i++)
+            {
+                for (int j = 0; j < InBitmap.Height; j++)
+                {
+                  
+                    OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);  
+                }
+            }
+            // i je wyrzucamy w koncowej bitmapie
+            for (int i = 0; i < InBitmap.Width; i++)
+            {
+                for (int j = 0; j < InBitmap.Height; j++)
+                {
+                    Color color =  Color.FromArgb(OutBitmapValues[i, j], OutBitmapValues[i, j], OutBitmapValues[i, j]);
+                    outBitmap.SetPixel(i, j, color); 
+                }
+            }
 
 
             return outBitmap;
@@ -95,9 +158,7 @@ namespace Tomograph
             {
                 if (point.X > 0 && point.X < InBitmap.Width && point.Y > 0 && point.Y < InBitmap.Height)
                 {
-                    int rgb = value;
-                    Color newColor = Color.FromArgb(rgb, rgb, rgb);
-                    bitmap.SetPixel(point.X, point.Y, newColor);
+                    OutBitmapValues[point.X, point.Y] += value;
                 }
                 
                 // tu aktualziacja wartosci
@@ -155,10 +216,40 @@ namespace Tomograph
 
                 count ++; // który scan w sinogramie
             }
+            //tworzymy chwilową tablicę, żeby przeskalować
+            var tempSinogramValues = new int[Scans, Detectors];
+            for (int i = 0; i < Scans; i++)
+            {
+                for (int j = 0; j < Detectors; j++)
+                {
+                    tempSinogramValues[i, j] = SinogramValues[i, j];
+                }
+            }
+            //pobieramy min max
+            int min = 255;
+            int max = 0;
+            foreach (var value in tempSinogramValues)
+            {
+                if (value > max)
+                {
+                    max = value;
+                }
+                if (min > value)
+                {
+                    min = value;
+                }
+            }
 
             
-            //tu przeskaluje tablcie dwuwymairowowa 
-
+            //dla temp tworzymy wartości z przedziału 0..255
+            for (int i = 0; i < 90; i++)
+            {
+                for (int j = 0; j < 180; j++)
+                {
+                    tempSinogramValues[i, j] = Constraint(tempSinogramValues[i, j], 0, 255, min, max);
+                }
+            }
+            //i tu przybijamy to do bitmapy, żeby zawsze mieć do niej dostęp
             Bitmap sinogram = new Bitmap(Detectors, Scans);
           
             for (int i = 0; i < Detectors; i++)
@@ -166,14 +257,21 @@ namespace Tomograph
                 for (int j =0; j < Scans; j++)
                 {
                     //Odwracamy sinogram do odpowiedniej pozycji
-                    var pixel = tempSinogram.GetPixel(Detectors - 1 - i, Scans - 1 - j);
-                    sinogram.SetPixel(i, j, pixel);
-                    //SinogramValues[j, i] = pixel.R;
+                    Color color = Color.FromArgb(tempSinogramValues[Scans - 1 - j, Detectors - 1 - i], tempSinogramValues[Scans - 1 - j, Detectors - 1 - i], tempSinogramValues[Scans - 1 - j, Detectors - 1 - i]);
+                    sinogram.SetPixel(i, j, color);
                 }
             }
 
-            this.Sinogram = sinogram;
+            this.Sinogram = sinogram;          
+
             return sinogram;
+        }
+
+        private static int Constraint(double value, double minRange, double maxRange,
+                                           double minVal, double maxVal)
+        {
+            return (int)(((value - minVal) / (maxVal - minVal)) *
+                      (maxRange - minRange) + minRange);
         }
 
         private double GetRadians(double angle)
@@ -194,13 +292,7 @@ namespace Tomograph
                 }
             }
 
-            // TODO
-            // trzeba ogarnąć to sumowanie, bo wymnożenie wyniku ostatecznego o 6 daje dopiero w miarę oczekiwany rezultat
-            // 
-            return Math.Min(sum / count *6  , 255); // dzielimy przez ilość punktów
-
-            //TODO
-            // wartosci walisz w tablice dwuwymairowa i przeskalowujesz na skale szarosci
+            return Math.Min(sum / count , 255); // dzielimy przez ilość punktów
 
         }
 
