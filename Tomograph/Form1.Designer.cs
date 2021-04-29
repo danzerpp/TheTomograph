@@ -42,18 +42,18 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.DICOM = new System.Windows.Forms.TabPage();
+            this.patientId = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.patientComments = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.patientDate = new System.Windows.Forms.TextBox();
             this.patientName = new System.Windows.Forms.TextBox();
             this.patientPicture = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label6 = new System.Windows.Forms.Label();
-            this.patientId = new System.Windows.Forms.TextBox();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,16 +66,17 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(434, 28);
+            this.pictureBox.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox.Location = new System.Drawing.Point(434, 69);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(168, 163);
+            this.pictureBox.Size = new System.Drawing.Size(168, 108);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
             // txtAlfa
             // 
-            this.txtAlfa.Location = new System.Drawing.Point(228, 40);
+            this.txtAlfa.Location = new System.Drawing.Point(215, 51);
             this.txtAlfa.Margin = new System.Windows.Forms.Padding(6);
             this.txtAlfa.Name = "txtAlfa";
             this.txtAlfa.Size = new System.Drawing.Size(184, 34);
@@ -83,7 +84,7 @@
             // 
             // txtDetectors
             // 
-            this.txtDetectors.Location = new System.Drawing.Point(228, 91);
+            this.txtDetectors.Location = new System.Drawing.Point(215, 102);
             this.txtDetectors.Margin = new System.Windows.Forms.Padding(6);
             this.txtDetectors.Name = "txtDetectors";
             this.txtDetectors.Size = new System.Drawing.Size(184, 34);
@@ -91,7 +92,7 @@
             // 
             // txtRange
             // 
-            this.txtRange.Location = new System.Drawing.Point(228, 143);
+            this.txtRange.Location = new System.Drawing.Point(215, 154);
             this.txtRange.Margin = new System.Windows.Forms.Padding(6);
             this.txtRange.Name = "txtRange";
             this.txtRange.Size = new System.Drawing.Size(184, 34);
@@ -101,7 +102,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(42, 50);
+            this.label1.Location = new System.Drawing.Point(47, 61);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 29);
@@ -112,7 +113,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(42, 96);
+            this.label2.Location = new System.Drawing.Point(47, 107);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 29);
@@ -123,7 +124,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(42, 148);
+            this.label3.Location = new System.Drawing.Point(47, 159);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(157, 29);
@@ -132,7 +133,8 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(692, 291);
+            this.pictureBox2.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox2.Location = new System.Drawing.Point(692, 259);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(550, 341);
@@ -142,7 +144,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(52, 291);
+            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox1.Location = new System.Drawing.Point(52, 259);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(550, 341);
@@ -170,6 +173,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Controls.Add(this.trackBar);
@@ -204,9 +208,7 @@
             this.DICOM.Controls.Add(this.label6);
             this.DICOM.Controls.Add(this.button2);
             this.DICOM.Controls.Add(this.patientComments);
-            this.DICOM.Controls.Add(this.label5);
             this.DICOM.Controls.Add(this.label4);
-            this.DICOM.Controls.Add(this.patientDate);
             this.DICOM.Controls.Add(this.patientName);
             this.DICOM.Controls.Add(this.patientPicture);
             this.DICOM.Controls.Add(this.button1);
@@ -218,6 +220,22 @@
             this.DICOM.Text = "DICOM";
             this.DICOM.UseVisualStyleBackColor = true;
             // 
+            // patientId
+            // 
+            this.patientId.Location = new System.Drawing.Point(996, 49);
+            this.patientId.Name = "patientId";
+            this.patientId.Size = new System.Drawing.Size(215, 34);
+            this.patientId.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(785, 52);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 29);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "ID";
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1025, 622);
@@ -226,6 +244,7 @@
             this.button2.TabIndex = 10;
             this.button2.Text = "Zapisz plik DICOM";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // patientComments
             // 
@@ -235,41 +254,26 @@
             this.patientComments.TabIndex = 9;
             this.patientComments.Text = "";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(785, 142);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(166, 29);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Data badania";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(785, 95);
+            this.label4.Location = new System.Drawing.Point(785, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(191, 29);
             this.label4.TabIndex = 6;
             this.label4.Text = "Imie i nazwisko";
             // 
-            // patientDate
-            // 
-            this.patientDate.Location = new System.Drawing.Point(996, 139);
-            this.patientDate.Name = "patientDate";
-            this.patientDate.Size = new System.Drawing.Size(215, 34);
-            this.patientDate.TabIndex = 4;
-            // 
             // patientName
             // 
-            this.patientName.Location = new System.Drawing.Point(996, 92);
+            this.patientName.Location = new System.Drawing.Point(996, 115);
             this.patientName.Name = "patientName";
             this.patientName.Size = new System.Drawing.Size(215, 34);
             this.patientName.TabIndex = 3;
             // 
             // patientPicture
             // 
-            this.patientPicture.Location = new System.Drawing.Point(43, 52);
+            this.patientPicture.BackColor = System.Drawing.Color.Silver;
+            this.patientPicture.Location = new System.Drawing.Point(64, 52);
             this.patientPicture.Name = "patientPicture";
             this.patientPicture.Size = new System.Drawing.Size(631, 644);
             this.patientPicture.TabIndex = 2;
@@ -285,21 +289,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label6
+            // button3
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(785, 52);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 29);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "ID";
-            // 
-            // patientId
-            // 
-            this.patientId.Location = new System.Drawing.Point(996, 49);
-            this.patientId.Name = "patientId";
-            this.patientId.Size = new System.Drawing.Size(215, 34);
-            this.patientId.TabIndex = 12;
+            this.button3.Location = new System.Drawing.Point(228, 641);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(171, 75);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Otwórz zdjęcie";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -346,14 +344,14 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RichTextBox patientComments;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox patientDate;
         private System.Windows.Forms.TextBox patientName;
         private System.Windows.Forms.PictureBox patientPicture;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.TextBox patientId;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }
 
