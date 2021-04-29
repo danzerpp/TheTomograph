@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Dicom;
 
 namespace Tomograph
 {
@@ -14,6 +15,7 @@ namespace Tomograph
         public Bitmap InBitmap;
 
         public Bitmap Sinogram;
+        public Bitmap SinogramFiltered;
         public int[,] SinogramValues;
         public int[,] SinogramFilteredValues;
         // nowa tablica do rozmania
@@ -79,7 +81,7 @@ namespace Tomograph
             double angle = 360 / (double)Scans;
 
             int count = 0;
-            for (double alfa = 0; alfa < iteration*angle; alfa = alfa + angle)
+            for (double alfa = 0; alfa < iteration*30; alfa = alfa + angle)
             {
                 //x,y - Emiter
                 int eX = (int)(r * Math.Cos(GetRadians(alfa)));
