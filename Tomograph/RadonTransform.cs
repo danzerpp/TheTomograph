@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dicom;
+using NumSharp;
 
 namespace Tomograph
 {
@@ -268,7 +269,13 @@ namespace Tomograph
 
             return sinogram;
         }
+        public Bitmap CreateFilteredSinogram()
+        {
+            NDArray kernel = ;
+            SinogramFilteredValues = SinogramValues;
+            np.convolve(SinogramFilteredValues, kernel, "same");
 
+        }
         private static int Constraint(double value, double minRange, double maxRange,
                                            double minVal, double maxVal)
         {
