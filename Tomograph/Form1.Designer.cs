@@ -81,6 +81,7 @@
             this.txtAlfa.Name = "txtAlfa";
             this.txtAlfa.Size = new System.Drawing.Size(184, 34);
             this.txtAlfa.TabIndex = 1;
+            this.txtAlfa.Text = "90";
             // 
             // txtDetectors
             // 
@@ -89,6 +90,7 @@
             this.txtDetectors.Name = "txtDetectors";
             this.txtDetectors.Size = new System.Drawing.Size(184, 34);
             this.txtDetectors.TabIndex = 2;
+            this.txtDetectors.Text = "180";
             // 
             // txtRange
             // 
@@ -97,6 +99,7 @@
             this.txtRange.Name = "txtRange";
             this.txtRange.Size = new System.Drawing.Size(184, 34);
             this.txtRange.TabIndex = 3;
+            this.txtRange.Text = "180";
             // 
             // label1
             // 

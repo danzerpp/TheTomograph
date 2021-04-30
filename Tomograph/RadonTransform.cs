@@ -276,28 +276,23 @@ namespace Tomograph
             var newSinogram = new int[Scans, Detectors];
             for (int i = 0; i < Scans; i++)
             {
-                var sinogramRow = new int[Detectors];
-                var sinogramKernel= new int[Detectors];
-
                 for (int j = 0; j < Detectors; j++)
                 {
-                    sinogramRow[j] = SinogramValues[i, j];
                     if (j == 0)
                     {
-                        sinogramKernel[j] = 1;
+                        newSinogram[i,j] = 1;
 
                     }
                     else if (j % 2 ==0)
                     {
-                        sinogramKernel[j] = 0;
+                        newSinogram[i, j] = 0;
                     }
                     else
                     {
-                        sinogramKernel[j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
+                        newSinogram[i, j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
 
                     }
                 }
-                var x = np.convolve(sinogramRow, sinogramKernel, "same");
 
             }
 
