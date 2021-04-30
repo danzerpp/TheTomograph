@@ -24,13 +24,14 @@ namespace Tomograph
         public Form1()
         {
             InitializeComponent();
-            trackBar.Minimum = 1;
-            trackBar.Maximum = 12;
         }
 
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
-            pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value);
+            if (_radonTransform != null)
+            {
+                pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,23 +44,26 @@ namespace Tomograph
         {
             openFileDialog1.InitialDirectory = "C:";
             openFileDialog1.Title = "Open DICOM file";
-            openFileDialog1.ShowDialog();
-            var fileDICOM = DicomFile.Open(openFileDialog1.FileName);
-            var imageDICOM = new DicomImage(openFileDialog1.FileName);
-            imageDICOM.RenderImage().AsBitmap().Save(@"temp.jpg");
-            Bitmap b = new Bitmap(@"temp.jpg");
-            patientPicture.SizeMode = PictureBoxSizeMode.StretchImage;
-            DicomDataset dataset = fileDICOM.Dataset;
-            var patientIdD = dataset.Get<string>(DicomTag.PatientID);
-            var patientNameD = dataset.Get<string>(DicomTag.PatientName);
-            //var patientDateD = dataset.Get<string>(DicomTag.PatientAlternativeCalendar);
-            //var patientCommentsD = dataset.Get<string>(DicomTag.PatientComments);
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var fileDICOM = DicomFile.Open(openFileDialog1.FileName);
+                var imageDICOM = new DicomImage(openFileDialog1.FileName);
+                imageDICOM.RenderImage().AsBitmap().Save(@"temp.jpg");
+                Bitmap b = new Bitmap(@"temp.jpg");
+                patientPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+                DicomDataset dataset = fileDICOM.Dataset;
+                var patientIdD = dataset.Get<string>(DicomTag.PatientID);
+                var patientNameD = dataset.Get<string>(DicomTag.PatientName);
+                //var patientDateD = dataset.Get<string>(DicomTag.PatientAlternativeCalendar);
+                //var patientCommentsD = dataset.Get<string>(DicomTag.PatientComments);
 
-            patientId.Text = patientIdD;
-            patientName.Text = patientNameD;
-            //patientDate.Text = patientDateD;
-            //patientComments.Text = patientCommentsD;
-            patientPicture.Image = b;
+                patientId.Text = patientIdD;
+                patientName.Text = patientNameD;
+                //patientDate.Text = patientDateD;
+                //patientComments.Text = patientCommentsD;
+                patientPicture.Image = b;
+            }
+            
 
         }
         private void button2_Click(object sender, EventArgs e)
@@ -101,19 +105,32 @@ namespace Tomograph
         {
             openFileDialog2.InitialDirectory = "C:";
             openFileDialog2.Title = "Open picture";
-            openFileDialog2.ShowDialog();
-            img = Image.FromFile(openFileDialog2.FileName);
-            bitmap = (Bitmap)img;
-            int aa = (int)Math.Sqrt(1024 * 1024 + 880 * 880);
-            pictureBox2.Image = bitmap;
-            pictureBox1.Image = bitmap;
-            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            _radonTransform = new RadonTransform(bitmap, 90, 180, 180);
-            bitmap = _radonTransform.CreateSinogram();
-            pictureBox.Image = bitmap;
-            pictureBox2.Image = _radonTransform.CreateOutImage(12);
-            patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
-            patientPicture.Image = pictureBox2.Image;
+            
+            if (openFileDialog2.ShowDialog() == DialogResult.OK)
+            {
+                img = Image.FromFile(openFileDialog2.FileName);
+                int scans, detectors, beam;
+                if (int.TryParse(txtAlfa.Text, out scans) && int.TryParse(txtDetectors.Text, out detectors) && int.TryParse(txtRange.Text, out beam))
+                {
+                    bitmap = (Bitmap)img;
+                    int aa = (int)Math.Sqrt(1024 * 1024 + 880 * 880);
+                    pictureBox2.Image = bitmap;
+                    pictureBox1.Image = bitmap;
+                    pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+                    _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
+                    bitmap = _radonTransform.CreateSinogram();
+                    pictureBox.Image = bitmap;
+                    pictureBox2.Image = _radonTransform.CreateOutImage(12);
+                    patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
+                    patientPicture.Image = pictureBox2.Image;
+                }
+                else
+                {
+                    MessageBox.Show("Wypełnij wymagane pola!");
+                }
+                
+            }
+           
         }
 
         public static byte[] GetPixels(Bitmap bitmap)

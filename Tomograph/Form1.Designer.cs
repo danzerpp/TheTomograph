@@ -40,6 +40,7 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.DICOM = new System.Windows.Forms.TabPage();
             this.patientId = new System.Windows.Forms.TextBox();
@@ -53,7 +54,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -156,9 +156,12 @@
             // trackBar
             // 
             this.trackBar.Location = new System.Drawing.Point(692, 121);
+            this.trackBar.Maximum = 12;
+            this.trackBar.Minimum = 1;
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(550, 56);
             this.trackBar.TabIndex = 9;
+            this.trackBar.Value = 12;
             this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // tabControl1
@@ -192,6 +195,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(52, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(347, 36);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Otwórz zdjęcie";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // richTextBox1
             // 
@@ -288,16 +301,6 @@
             this.button1.Text = "Otwórz plik DICOM";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(228, 641);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(171, 75);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Otwórz zdjęcie";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
