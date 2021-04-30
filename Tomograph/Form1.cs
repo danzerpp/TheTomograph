@@ -117,11 +117,13 @@ namespace Tomograph
                     pictureBox1.Image = bitmap;
                     pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
                     _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
+                    
                     bitmap = _radonTransform.CreateSinogram();
                     pictureBox.Image = bitmap;
                     pictureBox2.Image = _radonTransform.CreateOutImage(12);
                     patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
                     patientPicture.Image = pictureBox2.Image;
+                    pictureBox.Image = _radonTransform.CreateFilteredSinogram();
                 }
                 else
                 {

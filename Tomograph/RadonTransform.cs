@@ -265,16 +265,91 @@ namespace Tomograph
                 }
             }
 
+
             this.Sinogram = sinogram;          
 
             return sinogram;
         }
-        public Bitmap CreateFilteredSinogram()
+         public Bitmap CreateFilteredSinogram()
         {
-            NDArray kernel = ;
-            SinogramFilteredValues = SinogramValues;
-            np.convolve(SinogramFilteredValues, kernel, "same");
 
+            var newSinogram = new int[Scans, Detectors];
+            for (int i = 0; i < Scans; i++)
+            {
+                var sinogramRow = new int[Detectors];
+                var sinogramKernel= new int[Detectors];
+
+                for (int j = 0; j < Detectors; j++)
+                {
+                    sinogramRow[j] = SinogramValues[i, j];
+                    if (j == 0)
+                    {
+                        sinogramKernel[j] = 1;
+
+                    }
+                    else if (j % 2 ==0)
+                    {
+                        sinogramKernel[j] = 0;
+                    }
+                    else
+                    {
+                        sinogramKernel[j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
+
+                    }
+                }
+                var x = np.convolve(sinogramRow, sinogramKernel, "same");
+
+            }
+
+            Bitmap sinogram = new Bitmap(Detectors, Scans);
+
+            int min = 255;
+            int max = 0;
+            foreach (var value in newSinogram)
+            {
+                if (value > max)
+                {
+                    max = value;
+                }
+                if (min > value)
+                {
+                    min = value;
+                }
+            }
+
+
+            //dla temp tworzymy wartości z przedziału 0..255
+            for (int i = 0; i < 90; i++)
+            {
+                for (int j = 0; j < 180; j++)
+                {
+                    newSinogram[i, j] = Constraint(newSinogram[i, j], 0, 255, min, max);
+                }
+            }
+             min = 255;
+             max = 0;
+            foreach (var value in newSinogram)
+            {
+                if (value > max)
+                {
+                    max = value;
+                }
+                if (min > value)
+                {
+                    min = value;
+                }
+            }
+
+            for (int i = 0; i < Detectors; i++)
+            {
+                for (int j = 0; j < Scans; j++)
+                {
+                    //Odwracamy sinogram do odpowiedniej pozycji
+                    Color color = Color.FromArgb(newSinogram[Scans - 1 - j, Detectors - 1 - i], newSinogram[Scans - 1 - j, Detectors - 1 - i], newSinogram[Scans - 1 - j, Detectors - 1 - i]);
+                    sinogram.SetPixel(i, j, color);
+                }
+            }
+            return sinogram;
         }
         private static int Constraint(double value, double minRange, double maxRange,
                                            double minVal, double maxVal)

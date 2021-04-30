@@ -67,7 +67,7 @@
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox.Location = new System.Drawing.Point(434, 69);
+            this.pictureBox.Location = new System.Drawing.Point(434, 6);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(168, 108);
