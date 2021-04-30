@@ -113,7 +113,6 @@ namespace Tomograph
                 if (int.TryParse(txtAlfa.Text, out scans) && int.TryParse(txtDetectors.Text, out detectors) && int.TryParse(txtRange.Text, out beam))
                 {
                     bitmap = (Bitmap)img;
-                    int aa = (int)Math.Sqrt(1024 * 1024 + 880 * 880);
                     pictureBox2.Image = bitmap;
                     pictureBox1.Image = bitmap;
                     pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
