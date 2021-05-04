@@ -123,7 +123,9 @@ namespace Tomograph
                     pictureBox2.Image = _radonTransform.CreateOutImage(12);
                     patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
                     patientPicture.Image = pictureBox2.Image;
-                    pictureBox.Image = _radonTransform.CreateFilteredSinogram();
+                    pictureBox.Image = _radonTransform.CreateSinogram();
+                    pictureBox3.Image = _radonTransform.CreateFilteredSinogram();
+
                 }
                 else
                 {

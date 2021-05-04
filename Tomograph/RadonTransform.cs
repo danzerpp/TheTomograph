@@ -10,13 +10,12 @@ using NumSharp;
 
 namespace Tomograph
 {
+
     public class RadonTransform
     {
 
         public Bitmap InBitmap;
-
         public Bitmap Sinogram;
-        public Bitmap SinogramFiltered;
         public int[,] SinogramValues;
         public int[,] SinogramFilteredValues;
         // nowa tablica do rozmania
@@ -266,86 +265,68 @@ namespace Tomograph
             }
 
 
-            this.Sinogram = sinogram;          
+            this.Sinogram = sinogram;
+            SinogramFilteredValues = tempSinogramValues;
 
             return sinogram;
         }
          public Bitmap CreateFilteredSinogram()
         {
-
-            var newSinogram = new int[Scans, Detectors];
-            for (int i = 0; i < Scans; i++)
+            double[] kernel = new double[21];
+            for (int i = 0; i < kernel.Length; i++)
             {
-                for (int j = 0; j < Detectors; j++)
+                if (i == 0)
                 {
-                    if (j == 0)
-                    {
-                        newSinogram[i,j] = 1;
-
-                    }
-                    else if (j % 2 ==0)
-                    {
-                        newSinogram[i, j] = 0;
-                    }
-                    else
-                    {
-                        newSinogram[i, j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
-
-                    }
+                    kernel[0] = 1;
                 }
-
-            }
-
-            Bitmap sinogram = new Bitmap(Detectors, Scans);
-
-            int min = 255;
-            int max = 0;
-            foreach (var value in newSinogram)
-            {
-                if (value > max)
+                else if (i % 2 == 0)
                 {
-                    max = value;
+                    kernel[i] = 0;
                 }
-                if (min > value)
+                else
                 {
-                    min = value;
+                    kernel[i] = ((-4 / Math.Pow(Math.PI, 2)) / Math.Pow(i, 2));
                 }
             }
 
+            int rows = SinogramFilteredValues.GetLength(0);
+            int columns = SinogramFilteredValues.GetLength(1);
 
-            //dla temp tworzymy wartości z przedziału 0..255
-            for (int i = 0; i < 90; i++)
+            int[] tempArray = new int[columns];
+
+            NDArray arrND;
+            int[] arr = new int[columns];
+
+
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < 180; j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    newSinogram[i, j] = Constraint(newSinogram[i, j], 0, 255, min, max);
+                    tempArray[j] = SinogramFilteredValues[i,j];
+                }
+                //np.convolve(tempArray, kernel, "same");
+                for (int z = 179; z > 0; z--)
+                {
+                    SinogramFilteredValues[i, z] = tempArray[z]*0; 
                 }
             }
-             min = 255;
-             max = 0;
-            foreach (var value in newSinogram)
-            {
-                if (value > max)
-                {
-                    max = value;
-                }
-                if (min > value)
-                {
-                    min = value;
-                }
-            }
+
+            Bitmap SinogramFiltered = new Bitmap(Detectors, Scans);
 
             for (int i = 0; i < Detectors; i++)
             {
                 for (int j = 0; j < Scans; j++)
                 {
                     //Odwracamy sinogram do odpowiedniej pozycji
-                    Color color = Color.FromArgb(newSinogram[Scans - 1 - j, Detectors - 1 - i], newSinogram[Scans - 1 - j, Detectors - 1 - i], newSinogram[Scans - 1 - j, Detectors - 1 - i]);
-                    sinogram.SetPixel(i, j, color);
+                    Color color = Color.FromArgb(SinogramFilteredValues[Scans - 1 - j, Detectors - 1 - i], SinogramFilteredValues[Scans - 1 - j, Detectors - 1 - i], SinogramFilteredValues[Scans - 1 - j, Detectors - 1 - i]);
+                    SinogramFiltered.SetPixel(i, j, color);
                 }
             }
-            return sinogram;
+
+            return SinogramFiltered;
         }
+
+
         private static int Constraint(double value, double minRange, double maxRange,
                                            double minVal, double maxVal)
         {
