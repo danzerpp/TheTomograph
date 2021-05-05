@@ -30,7 +30,18 @@ namespace Tomograph
         {
             if (_radonTransform != null)
             {
-                pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value);
+
+                outImage.Image = _radonTransform.CreateOutImage(trackBar.Value, checkBoxFilter.Checked);
+                if (checkBoxFilter.Checked)
+                {
+                    filteredSinogram.Visible = true;
+                    filteredSinogram.Image = _radonTransform.CreateFilteredSinogram();
+                }
+                else
+                {
+                    filteredSinogram.Visible = false;
+
+                }
             }
         }
 
@@ -63,12 +74,12 @@ namespace Tomograph
                 //patientComments.Text = patientCommentsD;
                 patientPicture.Image = b;
             }
-            
+
 
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Bitmap b = (Bitmap)pictureBox2.Image;
+            Bitmap b = (Bitmap)outImage.Image;
             byte[] pixels = GetPixels(b);
             MemoryByteBuffer buffer = new MemoryByteBuffer(pixels);
             DicomDataset dataset = new DicomDataset();
@@ -105,7 +116,7 @@ namespace Tomograph
         {
             openFileDialog2.InitialDirectory = "C:";
             openFileDialog2.Title = "Open picture";
-            
+
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
                 img = Image.FromFile(openFileDialog2.FileName);
@@ -113,25 +124,21 @@ namespace Tomograph
                 if (int.TryParse(txtAlfa.Text, out scans) && int.TryParse(txtDetectors.Text, out detectors) && int.TryParse(txtRange.Text, out beam))
                 {
                     bitmap = (Bitmap)img;
-                    pictureBox2.Image = bitmap;
-                    pictureBox1.Image = bitmap;
-                    pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+                    inImage.Image = bitmap;
+                    sinogram.SizeMode = PictureBoxSizeMode.AutoSize;
                     _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
-                    
-                    bitmap = _radonTransform.CreateSinogram();
-                    pictureBox.Image = bitmap;
-                    pictureBox2.Image = _radonTransform.CreateOutImage(12);
+                    sinogram.Image = _radonTransform.CreateSinogram();
+                    outImage.Image = _radonTransform.CreateOutImage(trackBar.Value, checkBoxFilter.Checked);
                     patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
-                    patientPicture.Image = pictureBox2.Image;
-                    pictureBox.Image = _radonTransform.CreateFilteredSinogram();
+                    patientPicture.Image = outImage.Image;
                 }
                 else
                 {
                     MessageBox.Show("Wypełnij wymagane pola!");
                 }
-                
+
             }
-           
+
         }
 
         public static byte[] GetPixels(Bitmap bitmap)
@@ -157,5 +164,24 @@ namespace Tomograph
             return bytes;
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_radonTransform != null)
+            {
+
+                outImage.Image = _radonTransform.CreateOutImage(trackBar.Value, checkBoxFilter.Checked);
+                if (checkBoxFilter.Checked)
+                {
+                    filteredSinogram.Visible = true;
+                    filteredSinogram.Image = _radonTransform.CreateFilteredSinogram();
+                }
+                else
+                {
+                    filteredSinogram.Visible = false;
+
+                }
+            }
+        }
     }
 }
+

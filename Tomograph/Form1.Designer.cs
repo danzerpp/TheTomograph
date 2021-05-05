@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.sinogram = new System.Windows.Forms.PictureBox();
             this.txtAlfa = new System.Windows.Forms.TextBox();
             this.txtDetectors = new System.Windows.Forms.TextBox();
             this.txtRange = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.outImage = new System.Windows.Forms.PictureBox();
+            this.inImage = new System.Windows.Forms.PictureBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -54,25 +54,28 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.checkBoxFilter = new System.Windows.Forms.CheckBox();
+            this.filteredSinogram = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.sinogram)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.DICOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.filteredSinogram)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox
+            // sinogram
             // 
-            this.pictureBox.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox.Location = new System.Drawing.Point(434, 6);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(168, 108);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            this.sinogram.BackColor = System.Drawing.Color.Silver;
+            this.sinogram.Location = new System.Drawing.Point(434, 6);
+            this.sinogram.Margin = new System.Windows.Forms.Padding(6);
+            this.sinogram.Name = "sinogram";
+            this.sinogram.Size = new System.Drawing.Size(168, 108);
+            this.sinogram.TabIndex = 0;
+            this.sinogram.TabStop = false;
             // 
             // txtAlfa
             // 
@@ -134,27 +137,27 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Beam extent";
             // 
-            // pictureBox2
+            // outImage
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox2.Location = new System.Drawing.Point(692, 259);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(550, 341);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
+            this.outImage.BackColor = System.Drawing.Color.Silver;
+            this.outImage.Location = new System.Drawing.Point(692, 259);
+            this.outImage.Margin = new System.Windows.Forms.Padding(6);
+            this.outImage.Name = "outImage";
+            this.outImage.Size = new System.Drawing.Size(550, 341);
+            this.outImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.outImage.TabIndex = 7;
+            this.outImage.TabStop = false;
             // 
-            // pictureBox1
+            // inImage
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox1.Location = new System.Drawing.Point(52, 259);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(550, 341);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.inImage.BackColor = System.Drawing.Color.Silver;
+            this.inImage.Location = new System.Drawing.Point(52, 259);
+            this.inImage.Margin = new System.Windows.Forms.Padding(6);
+            this.inImage.Name = "inImage";
+            this.inImage.Size = new System.Drawing.Size(550, 341);
+            this.inImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.inImage.TabIndex = 8;
+            this.inImage.TabStop = false;
             // 
             // trackBar
             // 
@@ -179,16 +182,18 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.filteredSinogram);
+            this.tabPage1.Controls.Add(this.checkBoxFilter);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.richTextBox1);
-            this.tabPage1.Controls.Add(this.pictureBox2);
+            this.tabPage1.Controls.Add(this.outImage);
             this.tabPage1.Controls.Add(this.trackBar);
             this.tabPage1.Controls.Add(this.txtRange);
-            this.tabPage1.Controls.Add(this.pictureBox);
+            this.tabPage1.Controls.Add(this.sinogram);
             this.tabPage1.Controls.Add(this.txtDetectors);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.txtAlfa);
-            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.inImage);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
@@ -305,6 +310,29 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // checkBoxFilter
+            // 
+            this.checkBoxFilter.AutoSize = true;
+            this.checkBoxFilter.Location = new System.Drawing.Point(52, 214);
+            this.checkBoxFilter.Name = "checkBoxFilter";
+            this.checkBoxFilter.Size = new System.Drawing.Size(139, 33);
+            this.checkBoxFilter.TabIndex = 13;
+            this.checkBoxFilter.Text = "Filtered?";
+            this.checkBoxFilter.UseVisualStyleBackColor = true;
+            this.checkBoxFilter.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // filteredSinogram
+            // 
+            this.filteredSinogram.BackColor = System.Drawing.Color.Silver;
+            this.filteredSinogram.Location = new System.Drawing.Point(434, 126);
+            this.filteredSinogram.Margin = new System.Windows.Forms.Padding(6);
+            this.filteredSinogram.Name = "filteredSinogram";
+            this.filteredSinogram.Size = new System.Drawing.Size(168, 108);
+            this.filteredSinogram.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.filteredSinogram.TabIndex = 14;
+            this.filteredSinogram.TabStop = false;
+            this.filteredSinogram.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -314,11 +342,10 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
-            this.Text = "Tomograf";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sinogram)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -326,21 +353,22 @@
             this.DICOM.ResumeLayout(false);
             this.DICOM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.filteredSinogram)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.PictureBox sinogram;
         private System.Windows.Forms.TextBox txtAlfa;
         private System.Windows.Forms.TextBox txtDetectors;
         private System.Windows.Forms.TextBox txtRange;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox outImage;
+        private System.Windows.Forms.PictureBox inImage;
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -358,6 +386,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.CheckBox checkBoxFilter;
+        private System.Windows.Forms.PictureBox filteredSinogram;
     }
 }
 
