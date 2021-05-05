@@ -135,12 +135,12 @@ namespace Tomograph
             for (int i = 0; i < InBitmap.Width; i++)
             {
                 for (int j = 0; j < InBitmap.Height; j++)
-
+                {
                     OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);
-                    OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);  
                 }
+            }
 
-
+        
 
             min = 255;
             max = 0;
@@ -155,7 +155,7 @@ namespace Tomograph
                     min = value;
                 }
             }
-            }
+            
             // i je wyrzucamy w koncowej bitmapie
             for (int i = 0; i < InBitmap.Width; i++)
             {
@@ -170,6 +170,7 @@ namespace Tomograph
 
             return outBitmap;
         }
+
         private double GetValueFromSino(int i, int j, bool isFiltered)
         {
             if (isFiltered)
@@ -321,9 +322,7 @@ namespace Tomograph
                         kernel[i + 6] = ((-4 / (Math.Pow(Math.PI, 2)))) / Math.Pow(i , 2);
                     }
                 }
-
                 SinogramFilteredValues = new double[Scans, Detectors];
-                        newSinogram[i, j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
                 for (int i = 0; i < Scans; i++)
                 {
                     double[] a = new double[Detectors];
@@ -340,7 +339,7 @@ namespace Tomograph
                         SinogramFilteredValues[i, j] = z[j];
                     }
                 }
-                }
+                
                 //for (int i = 0; i < Scans; i++)
                 //{
                 //    for (int j = 0; j < Detectors; j++)
@@ -349,7 +348,6 @@ namespace Tomograph
                 //    }
                 //}
 
-            }
                 SinogramFiltered = new Bitmap(Detectors, Scans);
                 double min = 255;
                 double max = 0;
