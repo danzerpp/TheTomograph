@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -113,6 +113,7 @@ namespace Tomograph
 
                 points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r); // pobieramy punkty znajdujące się na linii emiter-detektor
                 SetColorsToBitmapPixels(outBitmap, points, GetValueFromSino(count, Detectors - 1, isFiltered));
+
                 count++; // który scan w sinogramie
             }
             //znowu min max
@@ -134,11 +135,10 @@ namespace Tomograph
             for (int i = 0; i < InBitmap.Width; i++)
             {
                 for (int j = 0; j < InBitmap.Height; j++)
-                {
 
                     OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);
+                    OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);  
                 }
-            }
 
 
 
@@ -155,6 +155,7 @@ namespace Tomograph
                     min = value;
                 }
             }
+            }
             // i je wyrzucamy w koncowej bitmapie
             for (int i = 0; i < InBitmap.Width; i++)
             {
@@ -169,7 +170,6 @@ namespace Tomograph
 
             return outBitmap;
         }
-
         private double GetValueFromSino(int i, int j, bool isFiltered)
         {
             if (isFiltered)
@@ -181,6 +181,7 @@ namespace Tomograph
                 return SinogramValues[i, j];
             }
         }
+
 
 
         private void SetColorsToBitmapPixels(Bitmap bitmap, List<Point> points, double value)
@@ -291,10 +292,10 @@ namespace Tomograph
                     sinogram.SetPixel(i, j, color);
                 }
             }
-
             this.Sinogram = sinogram;
           
             CreateFilteredSinogram();
+
 
             return sinogram;
         }
@@ -305,7 +306,6 @@ namespace Tomograph
                 var newSinogram = new double[Scans, Detectors];
 
                 double[] kernel = new double[11];
-
                 for (int i = -6; i < 5; i++)
                 {
                     if (i == 0)
@@ -323,7 +323,7 @@ namespace Tomograph
                 }
 
                 SinogramFilteredValues = new double[Scans, Detectors];
-
+                        newSinogram[i, j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
                 for (int i = 0; i < Scans; i++)
                 {
                     double[] a = new double[Detectors];
@@ -339,7 +339,7 @@ namespace Tomograph
                         newSinogram[i, j] = z[j];
                         SinogramFilteredValues[i, j] = z[j];
                     }
-
+                }
                 }
                 //for (int i = 0; i < Scans; i++)
                 //{
@@ -349,10 +349,11 @@ namespace Tomograph
                 //    }
                 //}
 
-
+            }
                 SinogramFiltered = new Bitmap(Detectors, Scans);
                 double min = 255;
                 double max = 0;
+            Bitmap sinogram = new Bitmap(Detectors, Scans);
 
                 foreach (var value in newSinogram)
                 {
@@ -478,5 +479,4 @@ namespace Tomograph
 
 
 
-    }
-}
+}}
