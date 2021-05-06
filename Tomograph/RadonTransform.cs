@@ -134,10 +134,33 @@ namespace Tomograph
             for(int i = 0; i < InBitmap.Width; i++)
             {
                 for (int j = 0; j < InBitmap.Height; j++)
+<<<<<<< HEAD
                 {
                   
                     OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);  
                 }
+=======
+
+                    OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);
+                    OutBitmapValues[i, j] = Constraint(OutBitmapValues[i, j], 0, 255, min, max);  
+                }
+
+
+
+            min = 255;
+            max = 0;
+            foreach (var value in OutBitmapValues)
+            {
+                if (value > max)
+                {
+                    max = value;
+                }
+                if (min > value && value >0)
+                {
+                    min = value;
+                }
+            }
+>>>>>>> parent of e3ec44a (Merge conflicts repaired)
             }
             // i je wyrzucamy w koncowej bitmapie
             for (int i = 0; i < InBitmap.Width; i++)
@@ -152,6 +175,20 @@ namespace Tomograph
 
             return outBitmap;
         }
+<<<<<<< HEAD
+=======
+        private double GetValueFromSino(int i, int j, bool isFiltered)
+        {
+            if (isFiltered)
+            {
+                return SinogramFilteredValues[i, j];
+            }
+            else
+            {
+                return SinogramValues[i, j];
+            }
+        }
+>>>>>>> parent of e3ec44a (Merge conflicts repaired)
 
 
         private void SetColorsToBitmapPixels(Bitmap bitmap, List<Point> points, int value)
@@ -279,11 +316,37 @@ namespace Tomograph
                 {
                     kernel[0] = 1;
                 }
+<<<<<<< HEAD
                 else if (i % 2 == 0)
+=======
+
+                SinogramFilteredValues = new double[Scans, Detectors];
+                        newSinogram[i, j] = (int)((-4 * Math.Pow(Math.PI,2)) / Math.Pow(j,2));
+                for (int i = 0; i < Scans; i++)
+>>>>>>> parent of e3ec44a (Merge conflicts repaired)
                 {
                     kernel[i] = 0;
                 }
+<<<<<<< HEAD
                 else
+=======
+                }
+                //for (int i = 0; i < Scans; i++)
+                //{
+                //    for (int j = 0; j < Detectors; j++)
+                //    {
+                //        SinogramFilteredValues[i,j] = newSinogram[i,j];
+                //    }
+                //}
+
+            }
+                SinogramFiltered = new Bitmap(Detectors, Scans);
+                double min = 255;
+                double max = 0;
+            Bitmap sinogram = new Bitmap(Detectors, Scans);
+
+                foreach (var value in newSinogram)
+>>>>>>> parent of e3ec44a (Merge conflicts repaired)
                 {
                     kernel[i] = ((-4 / Math.Pow(Math.PI, 2)) / Math.Pow(i, 2));
                 }
