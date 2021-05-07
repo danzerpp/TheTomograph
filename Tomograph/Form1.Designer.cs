@@ -40,7 +40,7 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSinoFiltered = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.DICOM = new System.Windows.Forms.TabPage();
@@ -55,13 +55,14 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSinoFiltered)).BeginInit();
             this.DICOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).BeginInit();
             this.SuspendLayout();
@@ -181,7 +182,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.pictureBox3);
+            this.tabPage1.Controls.Add(this.chkIsFiltered);
+            this.tabPage1.Controls.Add(this.pictureBoxSinoFiltered);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.pictureBox2);
@@ -202,15 +204,16 @@
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox3
+            // pictureBoxSinoFiltered
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox3.Location = new System.Drawing.Point(434, 98);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(180, 90);
-            this.pictureBox3.TabIndex = 13;
-            this.pictureBox3.TabStop = false;
+            this.pictureBoxSinoFiltered.BackColor = System.Drawing.Color.Silver;
+            this.pictureBoxSinoFiltered.Location = new System.Drawing.Point(434, 98);
+            this.pictureBoxSinoFiltered.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBoxSinoFiltered.Name = "pictureBoxSinoFiltered";
+            this.pictureBoxSinoFiltered.Size = new System.Drawing.Size(180, 90);
+            this.pictureBoxSinoFiltered.TabIndex = 13;
+            this.pictureBoxSinoFiltered.TabStop = false;
+            this.pictureBoxSinoFiltered.Visible = false;
             // 
             // button3
             // 
@@ -318,6 +321,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // chkIsFiltered
+            // 
+            this.chkIsFiltered.AutoSize = true;
+            this.chkIsFiltered.Location = new System.Drawing.Point(52, 202);
+            this.chkIsFiltered.Name = "chkIsFiltered";
+            this.chkIsFiltered.Size = new System.Drawing.Size(228, 33);
+            this.chkIsFiltered.TabIndex = 14;
+            this.chkIsFiltered.Text = "Filter Sinogram?";
+            this.chkIsFiltered.UseVisualStyleBackColor = true;
+            this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -336,7 +350,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSinoFiltered)).EndInit();
             this.DICOM.ResumeLayout(false);
             this.DICOM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).EndInit();
@@ -372,7 +386,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBoxSinoFiltered;
+        private System.Windows.Forms.CheckBox chkIsFiltered;
     }
 }
 

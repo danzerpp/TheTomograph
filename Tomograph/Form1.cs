@@ -30,7 +30,7 @@ namespace Tomograph
         {
             if (_radonTransform != null)
             {
-                pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value);
+                pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
             }
         }
 
@@ -118,13 +118,12 @@ namespace Tomograph
                     pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
                     _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
                     
-                    bitmap = _radonTransform.CreateSinogram();
-                    pictureBox.Image = bitmap;
-                    pictureBox2.Image = _radonTransform.CreateOutImage(12);
+                    pictureBox.Image = _radonTransform.CreateSinogram();
+                    pictureBox2.Image = _radonTransform.CreateOutImage(12,chkIsFiltered.Checked);
+
+
                     patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
                     patientPicture.Image = pictureBox2.Image;
-                    pictureBox.Image = _radonTransform.CreateSinogram();
-                    pictureBox3.Image = _radonTransform.CreateFilteredSinogram();
 
                 }
                 else
@@ -159,5 +158,14 @@ namespace Tomograph
             return bytes;
         }
 
+        private void chkIsFiltered_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_radonTransform != null)
+            {
+                pictureBoxSinoFiltered.Image = _radonTransform.CreateFilteredSinogram();
+                pictureBoxSinoFiltered.Visible = chkIsFiltered.Checked;
+                pictureBox2.Image = _radonTransform.CreateOutImage(12, chkIsFiltered.Checked);
+            }
+        }
     }
 }
