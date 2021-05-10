@@ -37,7 +37,7 @@ namespace Tomograph
                 for (int j = 0; j < inBitmap.Height; j++)
                 {
                     Color oc = inBitmap.GetPixel(i, j);
-                    int grayScale = (int) ((oc.R*0.3) + (oc.G*0.59) + (oc.B*0.11));
+                    int grayScale = (int)((oc.R * 0.3) + (oc.G * 0.59) + (oc.B * 0.11));
                     Color nc = Color.FromArgb(oc.A, grayScale, grayScale, grayScale);
                     inBitmap.SetPixel(i, j, nc);
                 }
@@ -77,20 +77,24 @@ namespace Tomograph
 
 
 
-            int r = InBitmap.Width > InBitmap.Height ? InBitmap.Width/2 : InBitmap.Height/2;
-            double angle = 360/(double) Scans;
+            int r = InBitmap.Width > InBitmap.Height ? InBitmap.Width / 2 : InBitmap.Height / 2;
+            double angle = 360 / (double)Scans;
 
             int count = 0;
 
-            for (double alfa = 0; alfa < iteration*30; alfa = alfa + angle)
+            for (double alfa = 0; alfa < iteration * 30; alfa = alfa + angle)
             {
+                if (Scans == count)
+                {
+                    break;
+                }
                 //x,y - Emiter
-                int eX = (int) (r*Math.Cos(GetRadians(alfa)));
-                int eY = (int) (r*Math.Sin(GetRadians(alfa)));
+                int eX = (int)(r * Math.Cos(GetRadians(alfa)));
+                int eY = (int)(r * Math.Sin(GetRadians(alfa)));
 
                 //x,y - D0 
-                int dX = (int) (r*Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2)));
-                int dY = (int) (r*Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2)));
+                int dX = (int)(r * Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2)));
+                int dY = (int)(r * Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2)));
 
                 //Przy wyszukiwaniu punktów dodajemy do x i y "r", bo wzór jest ustawiony tak, że środek koła
                 // znajduje się w punkcie (0,0). Dodając "r" przenosimy się w przestrzeń bitmapy tj. tylko pierwsza ćwiartka układu
@@ -102,22 +106,22 @@ namespace Tomograph
                 {
                     dX =
                         (int)
-                            (r*
-                             Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2) +
-                                      i*(GetRadians(BeamExtend)/(Detectors - 1))));
+                            (r *
+                             Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2) +
+                                      i * (GetRadians(BeamExtend) / (Detectors - 1))));
                     dY =
                         (int)
-                            (r*
-                             Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2) +
-                                      i*(GetRadians(BeamExtend)/(Detectors - 1))));
+                            (r *
+                             Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2) +
+                                      i * (GetRadians(BeamExtend) / (Detectors - 1))));
 
                     points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r);
                     SetColorsToBitmapPixels(outBitmap, points, GetValueFromSino(count, i, isFiltered));
                 }
 
                 //Dn-1
-                dX = (int) (r*Math.Cos(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend)/2)));
-                dY = (int) (r*Math.Sin(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend)/2)));
+                dX = (int)(r * Math.Cos(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend) / 2)));
+                dY = (int)(r * Math.Sin(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend) / 2)));
 
                 points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r);
                 // pobieramy punkty znajdujące się na linii emiter-detektor
@@ -168,8 +172,8 @@ namespace Tomograph
             {
                 for (int j = 0; j < InBitmap.Height; j++)
                 {
-                    Color color = Color.FromArgb((int) OutBitmapValues[i, j], (int) OutBitmapValues[i, j],
-                        (int) OutBitmapValues[i, j]);
+                    Color color = Color.FromArgb((int)OutBitmapValues[i, j], (int)OutBitmapValues[i, j],
+                        (int)OutBitmapValues[i, j]);
                     //Color color = Color.FromArgb(100, 100, 100);
                     outBitmap.SetPixel(i, j, color);
                 }
@@ -213,21 +217,25 @@ namespace Tomograph
 
         public Bitmap CreateSinogram()
         {
-            int r = InBitmap.Width > InBitmap.Height ? InBitmap.Width/2 : InBitmap.Height/2;
-            double angle = 360/(double) Scans;
+            int r = InBitmap.Width > InBitmap.Height ? InBitmap.Width / 2 : InBitmap.Height / 2;
+            double angle = 360 / (double)Scans;
 
             Bitmap tempSinogram = new Bitmap(Detectors, Scans);
 
             int count = 0;
             for (double alfa = 0; alfa < 360; alfa = alfa + angle)
             {
+                if (count == Scans)
+                {
+                    break;
+                }
                 //x,y - Emiter
-                int eX = (int) (r*Math.Cos(GetRadians(alfa)));
-                int eY = (int) (r*Math.Sin(GetRadians(alfa)));
+                int eX = (int)(r * Math.Cos(GetRadians(alfa)));
+                int eY = (int)(r * Math.Sin(GetRadians(alfa)));
 
                 //x,y - D0 
-                int dX = (int) (r*Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2)));
-                int dY = (int) (r*Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2)));
+                int dX = (int)(r * Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2)));
+                int dY = (int)(r * Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2)));
 
                 //Przy wyszukiwaniu punktów dodajemy do x i y "r", bo wzór jest ustawiony tak, że środek koła
                 // znajduje się w punkcie (0,0). Dodając "r" przenosimy się w przestrzeń bitmapy tj. tylko pierwsza ćwiartka układu
@@ -239,14 +247,14 @@ namespace Tomograph
                 {
                     dX =
                         (int)
-                            (r*
-                             Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2) +
-                                      i*(GetRadians(BeamExtend)/(Detectors - 1))));
+                            (r *
+                             Math.Cos(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2) +
+                                      i * (GetRadians(BeamExtend) / (Detectors - 1))));
                     dY =
                         (int)
-                            (r*
-                             Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend)/2) +
-                                      i*(GetRadians(BeamExtend)/(Detectors - 1))));
+                            (r *
+                             Math.Sin(GetRadians(alfa) + Math.PI - (GetRadians(BeamExtend) / 2) +
+                                      i * (GetRadians(BeamExtend) / (Detectors - 1))));
 
                     points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r);
                     color = GetColorFromPoints(points);
@@ -254,11 +262,11 @@ namespace Tomograph
                 }
 
                 //Dn-1
-                dX = (int) (r*Math.Cos(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend)/2)));
-                dY = (int) (r*Math.Sin(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend)/2)));
+                dX = (int)(r * Math.Cos(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend) / 2)));
+                dY = (int)(r * Math.Sin(GetRadians(alfa) + Math.PI + (GetRadians(BeamExtend) / 2)));
 
                 points = GetPointsOnLine(eX + r, eY + r, dX + r, dY + r);
-                    // pobieramy punkty znajdujące się na linii emiter-detektor
+                // pobieramy punkty znajdujące się na linii emiter-detektor
                 color = GetColorFromPoints(points); // obliczamy kolor
                 SinogramValues[count, Detectors - 1] = color;
 
@@ -270,7 +278,7 @@ namespace Tomograph
             {
                 for (int j = 0; j < Detectors; j++)
                 {
-                    tempSinogramValues[i, j] = (int) SinogramValues[i, j];
+                    tempSinogramValues[i, j] = (int)SinogramValues[i, j];
                 }
             }
             //pobieramy min max
@@ -291,9 +299,9 @@ namespace Tomograph
 
             //dla temp tworzymy wartości z przedziału 0..255
 
-            for (int i = 0; i < 90; i++)
+            for (int i = 0; i < Scans; i++)
             {
-                for (int j = 0; j < 180; j++)
+                for (int j = 0; j < Detectors; j++)
                 {
                     tempSinogramValues[i, j] = Constraint(tempSinogramValues[i, j], 0, 255, min, max);
                 }
@@ -307,9 +315,9 @@ namespace Tomograph
                 for (int j = 0; j < Scans; j++)
                 {
                     //Odwracamy sinogram do odpowiedniej pozycji
-                    Color color = Color.FromArgb((int) tempSinogramValues[Scans - 1 - j, Detectors - 1 - i],
-                        (int) tempSinogramValues[Scans - 1 - j, Detectors - 1 - i],
-                        (int) tempSinogramValues[Scans - 1 - j, Detectors - 1 - i]);
+                    Color color = Color.FromArgb((int)tempSinogramValues[Scans - 1 - j, Detectors - 1 - i],
+                        (int)tempSinogramValues[Scans - 1 - j, Detectors - 1 - i],
+                        (int)tempSinogramValues[Scans - 1 - j, Detectors - 1 - i]);
                     sinogram.SetPixel(i, j, color);
                 }
             }
@@ -335,13 +343,13 @@ namespace Tomograph
                     {
                         kernel[i + 6] = 1;
                     }
-                    else if (i%2 == 0)
+                    else if (i % 2 == 0)
                     {
                         kernel[i + 6] = 0;
                     }
                     else
                     {
-                        kernel[i + 6] = ((-4/(Math.Pow(Math.PI, 2))))/Math.Pow(i, 2);
+                        kernel[i + 6] = ((-4 / (Math.Pow(Math.PI, 2)))) / Math.Pow(i, 2);
                     }
                 }
 
@@ -383,9 +391,9 @@ namespace Tomograph
                 }
                 //dla temp tworzymy wartości z przedziału 0..255
 
-                for (int i = 0; i < 90; i++)
+                for (int i = 0; i < Scans; i++)
                 {
-                    for (int j = 0; j < 180; j++)
+                    for (int j = 0; j < Detectors; j++)
                     {
                         newSinogram[i, j] = Constraint(newSinogram[i, j], 0, 255, min, max);
                     }
@@ -413,9 +421,9 @@ namespace Tomograph
                     for (int j = 0; j < Scans; j++)
                     {
                         //Odwracamy sinogram do odpowiedniej pozycji
-                        Color color = Color.FromArgb((int) newSinogram[Scans - 1 - j, Detectors - 1 - i],
-                            (int) newSinogram[Scans - 1 - j, Detectors - 1 - i],
-                            (int) newSinogram[Scans - 1 - j, Detectors - 1 - i]);
+                        Color color = Color.FromArgb((int)newSinogram[Scans - 1 - j, Detectors - 1 - i],
+                            (int)newSinogram[Scans - 1 - j, Detectors - 1 - i],
+                            (int)newSinogram[Scans - 1 - j, Detectors - 1 - i]);
                         SinogramFiltered.SetPixel(i, j, color);
                     }
                 }
@@ -428,13 +436,13 @@ namespace Tomograph
         private static int Constraint(double value, double minRange, double maxRange,
             double minVal, double maxVal)
         {
-            return (int) (((value - minVal)/(maxVal - minVal))*
+            return (int)(((value - minVal) / (maxVal - minVal)) *
                           (maxRange - minRange) + minRange);
         }
 
         private double GetRadians(double angle)
         {
-            return (Math.PI/180)*angle;
+            return (Math.PI / 180) * angle;
         }
 
         private double GetColorFromPoints(List<Point> points)
@@ -446,17 +454,17 @@ namespace Tomograph
                 if (point.X > 0 && point.X < InBitmap.Width && point.Y > 0 && point.Y < InBitmap.Height)
                 {
                     sum += InBitmap.GetPixel(point.X, point.Y).R;
-                        // sumujemy wartość 'wystarczy jedna bo dla rgb skali szarości wszystkie są równe'
+                    // sumujemy wartość 'wystarczy jedna bo dla rgb skali szarości wszystkie są równe'
                     count++;
                 }
             }
 
-            return Math.Min(sum/count, 255); // dzielimy przez ilość punktów
+            return Math.Min(sum / count, 255); // dzielimy przez ilość punktów
 
         }
 
         private List<Point> GetPointsOnLine(int x0, int y0, int x1, int y1)
-            // funkcja z neta, ale tej nie musieliśmy pisać sami
+        // funkcja z neta, ale tej nie musieliśmy pisać sami
         {
             List<Point> points = new List<Point>();
             bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
@@ -482,7 +490,7 @@ namespace Tomograph
             }
             int dx = x1 - x0;
             int dy = Math.Abs(y1 - y0);
-            int error = dx/2;
+            int error = dx / 2;
             int ystep = (y0 < y1) ? 1 : -1;
             int y = y0;
             for (int x = x0; x <= x1; x++)
