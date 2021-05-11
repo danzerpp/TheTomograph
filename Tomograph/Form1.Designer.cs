@@ -43,9 +43,12 @@
             this.textRMSE = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.chkIsFiltered = new System.Windows.Forms.CheckBox();
-            this.pictureBoxSinoFiltered = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.DICOM = new System.Windows.Forms.TabPage();
+            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dicomDate = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
             this.patientId = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -57,26 +60,29 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.label7 = new System.Windows.Forms.Label();
-            this.patientDate = new System.Windows.Forms.TextBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSinoFiltered)).BeginInit();
             this.DICOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox.Location = new System.Drawing.Point(434, 6);
+            this.pictureBox.Location = new System.Drawing.Point(52, 612);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(180, 90);
+            this.pictureBox.Size = new System.Drawing.Size(44, 10);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -182,15 +188,16 @@
             this.tabControl1.Location = new System.Drawing.Point(-2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1298, 1046);
+            this.tabControl1.Size = new System.Drawing.Size(1265, 800);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPage1
             // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.textRMSE);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.chkIsFiltered);
-            this.tabPage1.Controls.Add(this.pictureBoxSinoFiltered);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Controls.Add(this.trackBar);
@@ -205,7 +212,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1290, 1004);
+            this.tabPage1.Size = new System.Drawing.Size(1257, 758);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -240,17 +247,6 @@
             this.chkIsFiltered.UseVisualStyleBackColor = true;
             this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
             // 
-            // pictureBoxSinoFiltered
-            // 
-            this.pictureBoxSinoFiltered.BackColor = System.Drawing.Color.Silver;
-            this.pictureBoxSinoFiltered.Location = new System.Drawing.Point(434, 98);
-            this.pictureBoxSinoFiltered.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBoxSinoFiltered.Name = "pictureBoxSinoFiltered";
-            this.pictureBoxSinoFiltered.Size = new System.Drawing.Size(180, 90);
-            this.pictureBoxSinoFiltered.TabIndex = 13;
-            this.pictureBoxSinoFiltered.TabStop = false;
-            this.pictureBoxSinoFiltered.Visible = false;
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(52, 6);
@@ -263,7 +259,9 @@
             // 
             // DICOM
             // 
-            this.DICOM.Controls.Add(this.patientDate);
+            this.DICOM.Controls.Add(this.txtFileName);
+            this.DICOM.Controls.Add(this.label8);
+            this.DICOM.Controls.Add(this.dicomDate);
             this.DICOM.Controls.Add(this.label7);
             this.DICOM.Controls.Add(this.patientId);
             this.DICOM.Controls.Add(this.label6);
@@ -280,6 +278,38 @@
             this.DICOM.TabIndex = 1;
             this.DICOM.Text = "DICOM";
             this.DICOM.UseVisualStyleBackColor = true;
+            // 
+            // txtFileName
+            // 
+            this.txtFileName.Location = new System.Drawing.Point(996, 596);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(215, 34);
+            this.txtFileName.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(785, 601);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(154, 29);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Nazwa pliku";
+            // 
+            // dicomDate
+            // 
+            this.dicomDate.Location = new System.Drawing.Point(996, 178);
+            this.dicomDate.Name = "dicomDate";
+            this.dicomDate.Size = new System.Drawing.Size(215, 34);
+            this.dicomDate.TabIndex = 14;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(785, 183);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(166, 29);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Data badania";
             // 
             // patientId
             // 
@@ -299,7 +329,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1025, 622);
+            this.button2.Location = new System.Drawing.Point(1025, 655);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(186, 74);
             this.button2.TabIndex = 10;
@@ -342,7 +372,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(790, 622);
+            this.button1.Location = new System.Drawing.Point(790, 655);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(186, 74);
             this.button1.TabIndex = 0;
@@ -350,27 +380,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label7
+            // pictureBox3
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(785, 183);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(166, 29);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Data badania";
-            // 
-            // patientDate
-            // 
-            this.patientDate.Location = new System.Drawing.Point(996, 183);
-            this.patientDate.Name = "patientDate";
-            this.patientDate.Size = new System.Drawing.Size(215, 34);
-            this.patientDate.TabIndex = 14;
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox3.Location = new System.Drawing.Point(692, 612);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(221, 80);
+            this.pictureBox3.TabIndex = 17;
+            this.pictureBox3.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1291, 779);
+            this.ClientSize = new System.Drawing.Size(1262, 797);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -384,10 +411,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSinoFiltered)).EndInit();
             this.DICOM.ResumeLayout(false);
             this.DICOM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -419,12 +446,15 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.PictureBox pictureBoxSinoFiltered;
         private System.Windows.Forms.CheckBox chkIsFiltered;
         private System.Windows.Forms.TextBox textRMSE;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox patientDate;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dicomDate;
+        private System.Windows.Forms.TextBox txtFileName;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

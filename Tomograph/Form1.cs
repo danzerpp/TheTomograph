@@ -18,6 +18,8 @@ namespace Tomograph
     {
         Bitmap bitmap;
         Image img;
+        Bitmap _dicomBitam;
+
 
         public RadonTransform _radonTransform;
 
@@ -32,6 +34,7 @@ namespace Tomograph
             {
                 var Bitmap = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
                 pictureBox2.Image = Bitmap;
+                patientPicture.Image = Bitmap;
                 textRMSE.Text = _radonTransform.RMSE(Bitmap).ToString();
             }
         }
@@ -50,58 +53,62 @@ namespace Tomograph
             {
                 var fileDICOM = DicomFile.Open(openFileDialog1.FileName);
                 var imageDICOM = new DicomImage(openFileDialog1.FileName);
-                imageDICOM.RenderImage().AsBitmap().Save(@"temp.jpg"); 
-                Bitmap b = new Bitmap(@"temp.jpg");
+                _dicomBitam =  imageDICOM.RenderImage().AsBitmap(); 
                 patientPicture.SizeMode = PictureBoxSizeMode.StretchImage;
                 DicomDataset dataset = fileDICOM.Dataset;
                 var patientIdD = dataset.Get<string>(DicomTag.PatientID);
                 var patientNameD = dataset.Get<string>(DicomTag.PatientName);
                 try
                 {
-                    var patientDateD = dataset.Get<string>(DicomTag.PatientAlternativeCalendar);
-                    patientDate.Text = patientDateD;
+                    dicomDate.Value = dataset.Get<DateTime>(DicomTag.StudyDate);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                 }
                 //var patientCommentsD = dataset.Get<string>(DicomTag.PatientComments);
                 patientId.Text = patientIdD;
                 patientName.Text = patientNameD;
                 //patientComments.Text = patientCommentsD;
-                patientPicture.Image = b;
+                patientPicture.Image = _dicomBitam;
             }
             
 
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Bitmap b = (Bitmap)pictureBox2.Image;
-            byte[] pixels = GetPixels(b);
-            MemoryByteBuffer buffer = new MemoryByteBuffer(pixels);
-            DicomDataset dataset = new DicomDataset();
-            //FillDataset(dataset);
-            dataset.Add(DicomTag.PhotometricInterpretation, PhotometricInterpretation.Rgb.Value);
-            dataset.Add(DicomTag.Rows, (ushort)b.Height);
-            dataset.Add(DicomTag.Columns, (ushort)b.Width);
-            dataset.Add(DicomTag.BitsAllocated, (ushort)8);
-            dataset.Add(DicomTag.SOPClassUID, "1.2.840.10008.5.1.4.1.1.2");
-            dataset.Add(DicomTag.SOPInstanceUID, "1.2.840.10008.5.1.4.1.1.2.20181120090837121314");
-            dataset.Add(DicomTag.PatientID, patientId.Text);
-            dataset.Add(DicomTag.PatientName, patientName.Text);
-            dataset.Add(DicomTag.StudyDescription, patientComments.Text);
-            dataset.Add(DicomTag.StudyDate, DateTime.Now);
-            DicomPixelData pixelData = DicomPixelData.Create(dataset, true);
-            pixelData.BitsStored = 8;
-            //pixelData.BitsAllocated = 8;
-            pixelData.SamplesPerPixel = 3;
-            pixelData.HighBit = 7;
-            pixelData.PixelRepresentation = 0;
-            pixelData.PlanarConfiguration = 0;
-            pixelData.AddFrame(buffer);
 
-            DicomFile dicomfile = new DicomFile(dataset);
-            dicomfile.Save(@"C:\Users\darek\Desktop\temp.dcm");
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap b = (Bitmap)pictureBox2.Image;
+                byte[] pixels = GetPixels(b);
+                MemoryByteBuffer buffer = new MemoryByteBuffer(pixels);
+                DicomDataset dataset = new DicomDataset();
+                //FillDataset(dataset);
+                dataset.Add(DicomTag.PhotometricInterpretation, PhotometricInterpretation.Rgb.Value);
+                dataset.Add(DicomTag.Rows, (ushort)b.Height);
+                dataset.Add(DicomTag.Columns, (ushort)b.Width);
+                dataset.Add(DicomTag.BitsAllocated, (ushort)8);
+                dataset.Add(DicomTag.SOPClassUID, "1.2.840.10008.5.1.4.1.1.2");
+                dataset.Add(DicomTag.SOPInstanceUID, "1.2.840.10008.5.1.4.1.1.2.20181120090837121314");
+                dataset.Add(DicomTag.PatientID, patientId.Text);
+                dataset.Add(DicomTag.PatientName, patientName.Text);
+                dataset.Add(DicomTag.StudyDescription, patientComments.Text);
+                dataset.Add(DicomTag.StudyDate, DateTime.Now);
+                DicomPixelData pixelData = DicomPixelData.Create(dataset, true);
+                pixelData.BitsStored = 8;
+                //pixelData.BitsAllocated = 8;
+                pixelData.SamplesPerPixel = 3;
+                pixelData.HighBit = 7;
+                pixelData.PixelRepresentation = 0;
+                pixelData.PlanarConfiguration = 0;
+                pixelData.AddFrame(buffer);
+
+                DicomFile dicomfile = new DicomFile(dataset);
+                dicomfile.Save(folderBrowserDialog1.SelectedPath + "\\"+txtFileName.Text + ".dcm");
+            }
+
+           
 
             //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             //if (saveFileDialog1.ShowDialog() = DialogResult.OK)
@@ -171,9 +178,11 @@ namespace Tomograph
             if (_radonTransform != null)
             {
                 var Bitmap = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
-                pictureBoxSinoFiltered.Image = _radonTransform.CreateFilteredSinogram();
-                pictureBoxSinoFiltered.Visible = chkIsFiltered.Checked;
+                pictureBox3.Image = _radonTransform.CreateFilteredSinogram();
+                pictureBox3.Visible = chkIsFiltered.Checked;
+
                 pictureBox2.Image = Bitmap;
+                patientPicture.Image = Bitmap;
                 textRMSE.Text = textRMSE.Text = _radonTransform.RMSE(Bitmap).ToString();
 
             }
@@ -188,5 +197,6 @@ namespace Tomograph
         {
 
         }
+
     }
 }
