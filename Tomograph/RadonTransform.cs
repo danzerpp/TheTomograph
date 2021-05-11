@@ -21,7 +21,7 @@ namespace Tomograph
         // nowa tablica do rozmania
 
         private double[,] OutBitmapValues;
-
+        private double[,] InputBitmapValues;
 
         public int Scans;
         public int Detectors;
@@ -50,7 +50,9 @@ namespace Tomograph
 
             SinogramValues = new double[scans, detectors];
 
-            OutBitmapValues = new double[InBitmap.Width, InBitmap.Height];
+            InputBitmapValues = new double[InBitmap.Width, InBitmap.Height];
+
+            OutBitmapValues = InputBitmapValues;
 
             for (int i = 0; i < InBitmap.Width; i++)
             {
@@ -59,7 +61,7 @@ namespace Tomograph
                     OutBitmapValues[i, j] = 0;
                 }
             }
-
+           
         }
 
 
@@ -183,6 +185,37 @@ namespace Tomograph
             return outBitmap;
         }
 
+        public float RMSE()
+        {
+            int square = 0;
+            float mean = 0;
+            float root = 0;
+            double[] difftab = new double[OutBitmapValues.Length];
+            int rowsOrHeight = OutBitmapValues.GetLength(0);
+            int colsOrWidth = OutBitmapValues.GetLength(1);
+
+            for (int i = 0; i < rowsOrHeight; i++)
+            {
+                for (int j = 0; j < colsOrWidth; j++)
+                {
+                    difftab[i] = /*brakuje obrazu wejsciowego*/ - OutBitmapValues[i, j]; // różnica obrazu wejściowego i wyjściowego
+                }
+            }
+
+            // Calculate square.
+            for (int i = 0; i < difftab.Length; i++)
+            {
+                square += (int)Math.Pow(difftab[i], 2);
+            }
+
+            // Calculate Mean.
+            mean = (square / (float)(difftab.Length));
+
+            // Calculate Root.
+            root = (float)Math.Sqrt(mean);
+
+            return root;
+        }
 
         private double GetValueFromSino(int i, int j, bool isFiltered)
         {
@@ -195,7 +228,7 @@ namespace Tomograph
                 return SinogramValues[i, j];
             }
         }
-
+        
 
 
         private void SetColorsToBitmapPixels(Bitmap bitmap, List<Point> points, double value)
@@ -210,9 +243,6 @@ namespace Tomograph
                 // tu aktualziacja wartosci
             }
         }
-
-
-
 
 
         public Bitmap CreateSinogram()

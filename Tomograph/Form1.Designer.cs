@@ -40,6 +40,9 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textRMSE = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             this.pictureBoxSinoFiltered = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -55,7 +58,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -158,16 +160,18 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // trackBar
             // 
-            this.trackBar.Location = new System.Drawing.Point(692, 121);
+            this.trackBar.Location = new System.Drawing.Point(692, 132);
             this.trackBar.Maximum = 12;
             this.trackBar.Minimum = 1;
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(550, 56);
             this.trackBar.TabIndex = 9;
             this.trackBar.Value = 12;
+            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // tabControl1
@@ -182,6 +186,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textRMSE);
+            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.chkIsFiltered);
             this.tabPage1.Controls.Add(this.pictureBoxSinoFiltered);
             this.tabPage1.Controls.Add(this.button3);
@@ -203,6 +209,36 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textRMSE
+            // 
+            this.textRMSE.Location = new System.Drawing.Point(878, 62);
+            this.textRMSE.Margin = new System.Windows.Forms.Padding(6);
+            this.textRMSE.Name = "textRMSE";
+            this.textRMSE.Size = new System.Drawing.Size(184, 34);
+            this.textRMSE.TabIndex = 16;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(687, 67);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(179, 29);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Current RMSE";
+            // 
+            // chkIsFiltered
+            // 
+            this.chkIsFiltered.AutoSize = true;
+            this.chkIsFiltered.Location = new System.Drawing.Point(52, 202);
+            this.chkIsFiltered.Name = "chkIsFiltered";
+            this.chkIsFiltered.Size = new System.Drawing.Size(228, 33);
+            this.chkIsFiltered.TabIndex = 14;
+            this.chkIsFiltered.Text = "Filter Sinogram?";
+            this.chkIsFiltered.UseVisualStyleBackColor = true;
+            this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
             // 
             // pictureBoxSinoFiltered
             // 
@@ -321,17 +357,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chkIsFiltered
-            // 
-            this.chkIsFiltered.AutoSize = true;
-            this.chkIsFiltered.Location = new System.Drawing.Point(52, 202);
-            this.chkIsFiltered.Name = "chkIsFiltered";
-            this.chkIsFiltered.Size = new System.Drawing.Size(228, 33);
-            this.chkIsFiltered.TabIndex = 14;
-            this.chkIsFiltered.Text = "Filter Sinogram?";
-            this.chkIsFiltered.UseVisualStyleBackColor = true;
-            this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -388,6 +413,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.PictureBox pictureBoxSinoFiltered;
         private System.Windows.Forms.CheckBox chkIsFiltered;
+        private System.Windows.Forms.TextBox textRMSE;
+        private System.Windows.Forms.Label label5;
     }
 }
 

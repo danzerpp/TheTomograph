@@ -31,6 +31,7 @@ namespace Tomograph
             if (_radonTransform != null)
             {
                 pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
+                textRMSE.Text = _radonTransform.RMSE().ToString();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Tomograph
             {
                 var fileDICOM = DicomFile.Open(openFileDialog1.FileName);
                 var imageDICOM = new DicomImage(openFileDialog1.FileName);
-                imageDICOM.RenderImage().AsBitmap().Save(@"temp.jpg");
+                imageDICOM.RenderImage().AsBitmap().Save(@"temp.jpg"); 
                 Bitmap b = new Bitmap(@"temp.jpg");
                 patientPicture.SizeMode = PictureBoxSizeMode.StretchImage;
                 DicomDataset dataset = fileDICOM.Dataset;
@@ -165,7 +166,18 @@ namespace Tomograph
                 pictureBoxSinoFiltered.Image = _radonTransform.CreateFilteredSinogram();
                 pictureBoxSinoFiltered.Visible = chkIsFiltered.Checked;
                 pictureBox2.Image = _radonTransform.CreateOutImage(12, chkIsFiltered.Checked);
+                textRMSE.Text = _radonTransform.RMSE().ToString();
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar_Scroll(object sender, EventArgs e)
+        {
+
         }
     }
 }
