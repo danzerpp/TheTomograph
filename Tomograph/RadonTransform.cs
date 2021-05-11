@@ -235,11 +235,13 @@ namespace Tomograph
             int rowsOrHeight = InBitmap.Height;
             int colsOrWidth = InBitmap.Width;
 
+            int count = 0;
             for (int i = 0; i < rowsOrHeight; i++)
             {
                 for (int j = 0; j < colsOrWidth; j++)
                 {
-                    difftab[i] = InBitmap.GetPixel(j, i).R - outBitmap.GetPixel(j, i).R; // różnica obrazu wejściowego i wyjściowego
+                    difftab[count] = InBitmap.GetPixel(j, i).R - outBitmap.GetPixel(j, i).R; // różnica obrazu wejściowego i wyjściowego
+                    count++;
                 }
             }
 
