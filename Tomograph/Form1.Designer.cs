@@ -40,6 +40,9 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnDrawRMSE = new System.Windows.Forms.Button();
+            this.plotOxy = new OxyPlot.WindowsForms.PlotView();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.textRMSE = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.chkIsFiltered = new System.Windows.Forms.CheckBox();
@@ -61,19 +64,15 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.plotOxy = new OxyPlot.WindowsForms.PlotView();
-            this.btnDrawRMSE = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.DICOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -188,7 +187,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.DICOM);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(-2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -222,6 +220,41 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnDrawRMSE
+            // 
+            this.btnDrawRMSE.Location = new System.Drawing.Point(854, 8);
+            this.btnDrawRMSE.Name = "btnDrawRMSE";
+            this.btnDrawRMSE.Size = new System.Drawing.Size(375, 99);
+            this.btnDrawRMSE.TabIndex = 19;
+            this.btnDrawRMSE.Text = "Rysuj RMSE dla róznych iteracji";
+            this.btnDrawRMSE.UseVisualStyleBackColor = true;
+            this.btnDrawRMSE.Click += new System.EventHandler(this.btnDrawRMSE_Click);
+            // 
+            // plotOxy
+            // 
+            this.plotOxy.Location = new System.Drawing.Point(809, 113);
+            this.plotOxy.Name = "plotOxy";
+            this.plotOxy.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plotOxy.Size = new System.Drawing.Size(420, 281);
+            this.plotOxy.TabIndex = 18;
+            this.plotOxy.Text = "plotView";
+            this.plotOxy.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plotOxy.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plotOxy.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox3.Location = new System.Drawing.Point(692, 756);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(221, 80);
+            this.pictureBox3.TabIndex = 17;
+            this.pictureBox3.TabStop = false;
             // 
             // textRMSE
             // 
@@ -280,7 +313,7 @@
             this.DICOM.Location = new System.Drawing.Point(4, 38);
             this.DICOM.Name = "DICOM";
             this.DICOM.Padding = new System.Windows.Forms.Padding(3);
-            this.DICOM.Size = new System.Drawing.Size(1290, 1004);
+            this.DICOM.Size = new System.Drawing.Size(1257, 758);
             this.DICOM.TabIndex = 1;
             this.DICOM.Text = "DICOM";
             this.DICOM.UseVisualStyleBackColor = true;
@@ -386,51 +419,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox3.Location = new System.Drawing.Point(692, 756);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(221, 80);
-            this.pictureBox3.TabIndex = 17;
-            this.pictureBox3.TabStop = false;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 38);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1257, 758);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Wykres";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // plotOxy
-            // 
-            this.plotOxy.Location = new System.Drawing.Point(809, 113);
-            this.plotOxy.Name = "plotOxy";
-            this.plotOxy.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotOxy.Size = new System.Drawing.Size(420, 281);
-            this.plotOxy.TabIndex = 18;
-            this.plotOxy.Text = "plotView";
-            this.plotOxy.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.plotOxy.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.plotOxy.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-            // 
-            // btnDrawRMSE
-            // 
-            this.btnDrawRMSE.Location = new System.Drawing.Point(854, 8);
-            this.btnDrawRMSE.Name = "btnDrawRMSE";
-            this.btnDrawRMSE.Size = new System.Drawing.Size(375, 99);
-            this.btnDrawRMSE.TabIndex = 19;
-            this.btnDrawRMSE.Text = "Rysuj RMSE dla róznych iteracji";
-            this.btnDrawRMSE.UseVisualStyleBackColor = true;
-            this.btnDrawRMSE.Click += new System.EventHandler(this.btnDrawRMSE_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -449,10 +437,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.DICOM.ResumeLayout(false);
             this.DICOM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientPicture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -493,7 +481,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnDrawRMSE;
         private OxyPlot.WindowsForms.PlotView plotOxy;
     }

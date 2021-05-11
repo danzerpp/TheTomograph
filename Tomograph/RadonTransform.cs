@@ -228,10 +228,10 @@ namespace Tomograph
 
         public float RMSE(Bitmap outBitmap)
         {
-            int square = 0;
+            long square = 0;
             float mean = 0;
             float root = 0;
-            double[] difftab = new double[OutBitmapValues.Length];
+            double[] difftab = new double[InBitmap.Height * InBitmap.Width];
             int rowsOrHeight = InBitmap.Height;
             int colsOrWidth = InBitmap.Width;
 
