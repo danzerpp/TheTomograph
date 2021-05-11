@@ -30,8 +30,9 @@ namespace Tomograph
         {
             if (_radonTransform != null)
             {
-                pictureBox2.Image = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
-                textRMSE.Text = _radonTransform.RMSE().ToString();
+                var Bitmap = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
+                pictureBox2.Image = Bitmap;
+                textRMSE.Text = _radonTransform.RMSE(Bitmap).ToString();
             }
         }
 
@@ -55,12 +56,18 @@ namespace Tomograph
                 DicomDataset dataset = fileDICOM.Dataset;
                 var patientIdD = dataset.Get<string>(DicomTag.PatientID);
                 var patientNameD = dataset.Get<string>(DicomTag.PatientName);
-                //var patientDateD = dataset.Get<string>(DicomTag.PatientAlternativeCalendar);
-                //var patientCommentsD = dataset.Get<string>(DicomTag.PatientComments);
+                try
+                {
+                    var patientDateD = dataset.Get<string>(DicomTag.PatientAlternativeCalendar);
+                    patientDate.Text = patientDateD;
 
+                }
+                catch (Exception)
+                {
+                }
+                //var patientCommentsD = dataset.Get<string>(DicomTag.PatientComments);
                 patientId.Text = patientIdD;
                 patientName.Text = patientNameD;
-                //patientDate.Text = patientDateD;
                 //patientComments.Text = patientCommentsD;
                 patientPicture.Image = b;
             }
@@ -163,10 +170,12 @@ namespace Tomograph
         {
             if (_radonTransform != null)
             {
+                var Bitmap = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
                 pictureBoxSinoFiltered.Image = _radonTransform.CreateFilteredSinogram();
                 pictureBoxSinoFiltered.Visible = chkIsFiltered.Checked;
-                pictureBox2.Image = _radonTransform.CreateOutImage(12, chkIsFiltered.Checked);
-                textRMSE.Text = _radonTransform.RMSE().ToString();
+                pictureBox2.Image = Bitmap;
+                textRMSE.Text = textRMSE.Text = _radonTransform.RMSE(Bitmap).ToString();
+
             }
         }
 

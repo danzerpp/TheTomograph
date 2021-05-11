@@ -45,7 +45,6 @@
             this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             this.pictureBoxSinoFiltered = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.DICOM = new System.Windows.Forms.TabPage();
             this.patientId = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -58,6 +57,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.label7 = new System.Windows.Forms.Label();
+            this.patientDate = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -191,7 +192,6 @@
             this.tabPage1.Controls.Add(this.chkIsFiltered);
             this.tabPage1.Controls.Add(this.pictureBoxSinoFiltered);
             this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Controls.Add(this.trackBar);
             this.tabPage1.Controls.Add(this.txtRange);
@@ -261,17 +261,10 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(599, 671);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(42, 45);
-            this.richTextBox1.TabIndex = 11;
-            this.richTextBox1.Text = "1. Pierwsza strona wartosci suwak, checkbox z firtrowaniem, wybieranie pliku img " +
-    "dialog kotrolka, tworzenie DICOMA z parametrami okreslonymi w regulach";
-            // 
             // DICOM
             // 
+            this.DICOM.Controls.Add(this.patientDate);
+            this.DICOM.Controls.Add(this.label7);
             this.DICOM.Controls.Add(this.patientId);
             this.DICOM.Controls.Add(this.label6);
             this.DICOM.Controls.Add(this.button2);
@@ -316,9 +309,9 @@
             // 
             // patientComments
             // 
-            this.patientComments.Location = new System.Drawing.Point(790, 188);
+            this.patientComments.Location = new System.Drawing.Point(790, 241);
             this.patientComments.Name = "patientComments";
-            this.patientComments.Size = new System.Drawing.Size(421, 395);
+            this.patientComments.Size = new System.Drawing.Size(421, 342);
             this.patientComments.TabIndex = 9;
             this.patientComments.Text = "";
             // 
@@ -356,6 +349,22 @@
             this.button1.Text = "Otwórz plik DICOM";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(785, 183);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(166, 29);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Data badania";
+            // 
+            // patientDate
+            // 
+            this.patientDate.Location = new System.Drawing.Point(996, 183);
+            this.patientDate.Name = "patientDate";
+            this.patientDate.Size = new System.Drawing.Size(215, 34);
+            this.patientDate.TabIndex = 14;
             // 
             // Form1
             // 
@@ -397,7 +406,6 @@
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TabPage DICOM;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -415,6 +423,8 @@
         private System.Windows.Forms.CheckBox chkIsFiltered;
         private System.Windows.Forms.TextBox textRMSE;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox patientDate;
+        private System.Windows.Forms.Label label7;
     }
 }
 

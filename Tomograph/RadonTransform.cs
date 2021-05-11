@@ -185,20 +185,20 @@ namespace Tomograph
             return outBitmap;
         }
 
-        public float RMSE()
+        public float RMSE(Bitmap outBitmap)
         {
             int square = 0;
             float mean = 0;
             float root = 0;
             double[] difftab = new double[OutBitmapValues.Length];
-            int rowsOrHeight = OutBitmapValues.GetLength(0);
-            int colsOrWidth = OutBitmapValues.GetLength(1);
+            int rowsOrHeight = InBitmap.Height;
+            int colsOrWidth = InBitmap.Width;
 
             for (int i = 0; i < rowsOrHeight; i++)
             {
                 for (int j = 0; j < colsOrWidth; j++)
                 {
-                    difftab[i] = /*brakuje obrazu wejsciowego*/ - OutBitmapValues[i, j]; // różnica obrazu wejściowego i wyjściowego
+                    difftab[i] = InBitmap.GetPixel(j, i).R - outBitmap.GetPixel(j, i).R; // różnica obrazu wejściowego i wyjściowego
                 }
             }
 
