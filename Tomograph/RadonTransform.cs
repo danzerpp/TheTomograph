@@ -406,7 +406,16 @@ namespace Tomograph
                     }
                 }
 
-
+                for (int i = 0; i < Scans; i++)
+                {
+                    for (int j = 0; j < Detectors; j++)
+                    {
+                        if (newSinogram[i,j] <0)
+                        {
+                            newSinogram[i, j] = 0;
+                        }
+                    }
+                }
 
                 for (int i = 0; i < Detectors; i++)
                 {

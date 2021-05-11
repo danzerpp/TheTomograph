@@ -40,6 +40,7 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             this.pictureBoxSinoFiltered = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -55,7 +56,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.chkIsFiltered = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -70,7 +70,7 @@
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox.Location = new System.Drawing.Point(434, 6);
+            this.pictureBox.Location = new System.Drawing.Point(52, 612);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(180, 90);
@@ -204,6 +204,17 @@
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // chkIsFiltered
+            // 
+            this.chkIsFiltered.AutoSize = true;
+            this.chkIsFiltered.Location = new System.Drawing.Point(52, 202);
+            this.chkIsFiltered.Name = "chkIsFiltered";
+            this.chkIsFiltered.Size = new System.Drawing.Size(228, 33);
+            this.chkIsFiltered.TabIndex = 14;
+            this.chkIsFiltered.Text = "Filter Sinogram?";
+            this.chkIsFiltered.UseVisualStyleBackColor = true;
+            this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
+            // 
             // pictureBoxSinoFiltered
             // 
             this.pictureBoxSinoFiltered.BackColor = System.Drawing.Color.Silver;
@@ -321,22 +332,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chkIsFiltered
-            // 
-            this.chkIsFiltered.AutoSize = true;
-            this.chkIsFiltered.Location = new System.Drawing.Point(52, 202);
-            this.chkIsFiltered.Name = "chkIsFiltered";
-            this.chkIsFiltered.Size = new System.Drawing.Size(228, 33);
-            this.chkIsFiltered.TabIndex = 14;
-            this.chkIsFiltered.Text = "Filter Sinogram?";
-            this.chkIsFiltered.UseVisualStyleBackColor = true;
-            this.chkIsFiltered.CheckedChanged += new System.EventHandler(this.chkIsFiltered_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1291, 779);
+            this.ClientSize = new System.Drawing.Size(1291, 914);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(6);
