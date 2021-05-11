@@ -13,7 +13,8 @@ namespace Tomograph
     {
 
         public Bitmap InBitmap;
-
+        public List<FilteredBitmaps> filteredBitmaps = new List<FilteredBitmaps>();
+        public List<FilteredBitmaps> notFilteredBitmaps = new List<FilteredBitmaps>();
         public Bitmap Sinogram;
         public Bitmap SinogramFiltered;
         public double[,] SinogramValues;
@@ -67,6 +68,15 @@ namespace Tomograph
 
         public Bitmap CreateOutImage(int iteration, bool isFiltered)
         {
+
+            if (isFiltered && filteredBitmaps.FirstOrDefault(b => b.Iteration == iteration) != null)
+            {
+                return filteredBitmaps.FirstOrDefault(b => b.Iteration == iteration).Bitmap;
+            }
+            else if(!isFiltered && notFilteredBitmaps.FirstOrDefault(b => b.Iteration == iteration) != null)
+            {
+                return notFilteredBitmaps.FirstOrDefault(b => b.Iteration == iteration).Bitmap;
+            }
             Bitmap outBitmap = new Bitmap(InBitmap.Width, InBitmap.Height);
             for (int i = 0; i < InBitmap.Width; i++)
             {
@@ -181,8 +191,39 @@ namespace Tomograph
                 }
             }
 
-
+            if (isFiltered)
+            {
+                filteredBitmaps.Add(new FilteredBitmaps()
+                {
+                    Iteration = iteration,
+                    Bitmap = outBitmap
+                });
+            }
+            else
+            {
+                notFilteredBitmaps.Add(new FilteredBitmaps()
+                {
+                    Iteration = iteration,
+                    Bitmap = outBitmap
+                });
+            }
             return outBitmap;
+        
+        }
+
+        async void CreateBitmaps()
+        {
+            for (int i = 12; i > 0; i--)
+            {
+                if (filteredBitmaps.FirstOrDefault(b=>b.Iteration == i) == null)
+                {
+                    filteredBitmaps.Add(new FilteredBitmaps()
+                    {
+                        Iteration = i,
+                        Bitmap = CreateOutImage(i, true)
+                    });
+                }
+            }
         }
 
         public float RMSE(Bitmap outBitmap)
@@ -544,6 +585,8 @@ namespace Tomograph
             }
             return points;
         }
+
+
 
 
 

@@ -1,6 +1,9 @@
 ﻿using Dicom;
 using Dicom.Imaging;
 using Dicom.IO.Buffer;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +29,7 @@ namespace Tomograph
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void trackBar_ValueChanged(object sender, EventArgs e)
@@ -132,9 +136,10 @@ namespace Tomograph
                     pictureBox1.Image = bitmap;
                     pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
                     _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
-                    
                     pictureBox.Image = _radonTransform.CreateSinogram();
-                    pictureBox2.Image = _radonTransform.CreateOutImage(12,chkIsFiltered.Checked);
+                    var Bitmap = _radonTransform.CreateOutImage(12, chkIsFiltered.Checked);
+                    pictureBox2.Image = Bitmap;
+                    textRMSE.Text = textRMSE.Text = _radonTransform.RMSE(Bitmap).ToString();
 
 
                     patientPicture.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -198,5 +203,26 @@ namespace Tomograph
 
         }
 
+        private void btnDrawRMSE_Click(object sender, EventArgs e)
+        {
+            var plotModel1 = new PlotModel();
+            plotModel1.Subtitle = "The scatter points are added to the Points collection.";
+            plotModel1.Title = "Wykres";
+            var linearAxis1 = new LinearAxis();
+            linearAxis1.Position = AxisPosition.Bottom;
+            linearAxis1.Title = "Iteracja";
+            plotModel1.Axes.Add(linearAxis1);
+            var linearAxis2 = new LinearAxis();
+            linearAxis2.Title = "RMSE";
+            plotModel1.Axes.Add(linearAxis2);
+            var scatterSeries1 = new LineSeries();
+            for (int i = 1; i <= 12; i++)
+            {
+                scatterSeries1.Points.Add(new DataPoint(i, _radonTransform.RMSE(_radonTransform.CreateOutImage(i,chkIsFiltered.Checked))));
+
+            }
+            plotModel1.Series.Add(scatterSeries1);
+            this.plotOxy.Model = plotModel1;
+        }
     }
 }

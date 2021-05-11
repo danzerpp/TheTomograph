@@ -62,6 +62,9 @@
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.plotOxy = new OxyPlot.WindowsForms.PlotView();
+            this.btnDrawRMSE = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -79,7 +82,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox.Location = new System.Drawing.Point(52, 612);
+            this.pictureBox.Location = new System.Drawing.Point(52, 756);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(44, 10);
@@ -149,7 +152,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox2.Location = new System.Drawing.Point(692, 259);
+            this.pictureBox2.Location = new System.Drawing.Point(692, 403);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(550, 341);
@@ -160,7 +163,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox1.Location = new System.Drawing.Point(52, 259);
+            this.pictureBox1.Location = new System.Drawing.Point(52, 403);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(550, 341);
@@ -171,11 +174,11 @@
             // 
             // trackBar
             // 
-            this.trackBar.Location = new System.Drawing.Point(692, 132);
+            this.trackBar.Location = new System.Drawing.Point(408, 8);
             this.trackBar.Maximum = 12;
             this.trackBar.Minimum = 1;
             this.trackBar.Name = "trackBar";
-            this.trackBar.Size = new System.Drawing.Size(550, 56);
+            this.trackBar.Size = new System.Drawing.Size(406, 56);
             this.trackBar.TabIndex = 9;
             this.trackBar.Value = 12;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
@@ -185,6 +188,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.DICOM);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(-2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -194,6 +198,8 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.btnDrawRMSE);
+            this.tabPage1.Controls.Add(this.plotOxy);
             this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.textRMSE);
             this.tabPage1.Controls.Add(this.label5);
@@ -219,7 +225,7 @@
             // 
             // textRMSE
             // 
-            this.textRMSE.Location = new System.Drawing.Point(878, 62);
+            this.textRMSE.Location = new System.Drawing.Point(603, 80);
             this.textRMSE.Margin = new System.Windows.Forms.Padding(6);
             this.textRMSE.Name = "textRMSE";
             this.textRMSE.Size = new System.Drawing.Size(184, 34);
@@ -229,7 +235,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(687, 67);
+            this.label5.Location = new System.Drawing.Point(412, 85);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 29);
@@ -386,12 +392,44 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox3.Location = new System.Drawing.Point(692, 612);
+            this.pictureBox3.Location = new System.Drawing.Point(692, 756);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(221, 80);
             this.pictureBox3.TabIndex = 17;
             this.pictureBox3.TabStop = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 38);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1257, 758);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Wykres";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // plotOxy
+            // 
+            this.plotOxy.Location = new System.Drawing.Point(809, 113);
+            this.plotOxy.Name = "plotOxy";
+            this.plotOxy.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plotOxy.Size = new System.Drawing.Size(420, 281);
+            this.plotOxy.TabIndex = 18;
+            this.plotOxy.Text = "plotView";
+            this.plotOxy.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plotOxy.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plotOxy.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // btnDrawRMSE
+            // 
+            this.btnDrawRMSE.Location = new System.Drawing.Point(854, 8);
+            this.btnDrawRMSE.Name = "btnDrawRMSE";
+            this.btnDrawRMSE.Size = new System.Drawing.Size(375, 99);
+            this.btnDrawRMSE.TabIndex = 19;
+            this.btnDrawRMSE.Text = "Rysuj RMSE dla róznych iteracji";
+            this.btnDrawRMSE.UseVisualStyleBackColor = true;
+            this.btnDrawRMSE.Click += new System.EventHandler(this.btnDrawRMSE_Click);
             // 
             // Form1
             // 
@@ -455,6 +493,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnDrawRMSE;
+        private OxyPlot.WindowsForms.PlotView plotOxy;
     }
 }
 
