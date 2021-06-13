@@ -84,7 +84,7 @@
             this.pictureBox.Location = new System.Drawing.Point(52, 756);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(44, 10);
+            this.pictureBox.Size = new System.Drawing.Size(44, 21);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -190,7 +190,7 @@
             this.tabControl1.Location = new System.Drawing.Point(-2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1265, 800);
+            this.tabControl1.Size = new System.Drawing.Size(1265, 883);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPage1
@@ -216,7 +216,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1257, 758);
+            this.tabPage1.Size = new System.Drawing.Size(1257, 841);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Analiza";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -252,9 +252,10 @@
             this.pictureBox3.Location = new System.Drawing.Point(692, 756);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(221, 80);
+            this.pictureBox3.Size = new System.Drawing.Size(53, 21);
             this.pictureBox3.TabIndex = 17;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Visible = false;
             // 
             // textRMSE
             // 
@@ -423,7 +424,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 797);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1262, 916);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(6);

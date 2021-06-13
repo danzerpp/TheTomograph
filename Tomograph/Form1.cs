@@ -135,6 +135,7 @@ namespace Tomograph
                     pictureBox2.Image = bitmap;
                     pictureBox1.Image = bitmap;
                     pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+                    pictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
                     _radonTransform = new RadonTransform(bitmap, scans, detectors, beam);
                     pictureBox.Image = _radonTransform.CreateSinogram();
                     var Bitmap = _radonTransform.CreateOutImage(12, chkIsFiltered.Checked);
@@ -183,8 +184,8 @@ namespace Tomograph
             if (_radonTransform != null)
             {
                 var Bitmap = _radonTransform.CreateOutImage(trackBar.Value, chkIsFiltered.Checked);
-                pictureBox3.Image = _radonTransform.CreateFilteredSinogram();
                 pictureBox3.Visible = chkIsFiltered.Checked;
+                pictureBox3.Image = _radonTransform.CreateFilteredSinogram();
 
                 pictureBox2.Image = Bitmap;
                 patientPicture.Image = Bitmap;
